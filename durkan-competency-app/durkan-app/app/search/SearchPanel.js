@@ -21,7 +21,7 @@ function FilterGroup({ label, items, selectedIds, onToggle }) {
 }
 
 export default function SearchPanel({ staff, experience, lookups, categories }) {
-  const [filters, setFilters] = useState({ project_type: [], value_band: [], build_type: [], contract_type: [] });
+  const [filters, setFilters] = useState({ project_type: [], value_band: [], build_type: [], client_type: [], procurement_type: [], contract_type: [], bim_type: [] });
   const [minLevels, setMinLevels] = useState({});
   const [verifiedOnly, setVerifiedOnly] = useState(true);
   const [shortlist, setShortlist] = useState([]);
@@ -47,7 +47,7 @@ export default function SearchPanel({ staff, experience, lookups, categories }) 
   const results = useMemo(() => {
     return staff.filter((s) => {
       const exp = expByStaff[s.id] || {};
-      for (const cat of ["project_type", "value_band", "build_type", "contract_type"]) {
+      for (const cat of ["project_type", "value_band", "build_type", "client_type", "procurement_type", "contract_type", "bim_type"]) {
         const required = filters[cat];
         if (required.length === 0) continue;
         const has = exp[cat] || [];
@@ -90,7 +90,10 @@ export default function SearchPanel({ staff, experience, lookups, categories }) 
           <FilterGroup label="Project types" items={lookups.projectTypes || []} selectedIds={filters.project_type} onToggle={(id) => toggleFilter("project_type", id)} />
           <FilterGroup label="Project values" items={lookups.valueBands || []} selectedIds={filters.value_band} onToggle={(id) => toggleFilter("value_band", id)} />
           <FilterGroup label="Build types" items={lookups.buildTypes || []} selectedIds={filters.build_type} onToggle={(id) => toggleFilter("build_type", id)} />
+          <FilterGroup label="Client types" items={lookups.clientTypes || []} selectedIds={filters.client_type} onToggle={(id) => toggleFilter("client_type", id)} />
+          <FilterGroup label="Procurement types" items={lookups.procurementTypes || []} selectedIds={filters.procurement_type} onToggle={(id) => toggleFilter("procurement_type", id)} />
           <FilterGroup label="Contract types" items={lookups.contractTypes || []} selectedIds={filters.contract_type} onToggle={(id) => toggleFilter("contract_type", id)} />
+          <FilterGroup label="Digital / BIM experience" items={lookups.bimTypes || []} selectedIds={filters.bim_type} onToggle={(id) => toggleFilter("bim_type", id)} />
         </div>
         <div style={{ borderTop: "1px solid var(--line)", marginTop: 8, paddingTop: 10 }}>
           <span className="lbl">Minimum competency level</span>
@@ -125,7 +128,7 @@ export default function SearchPanel({ staff, experience, lookups, categories }) 
             <input type="checkbox" checked={shortlist.includes(s.id)} onChange={() => toggleShort(s.id)} />
             <div style={{ flex: 1 }}>
               <div style={{ fontSize: 13.5, fontWeight: 600 }}>{s.full_name}</div>
-              <div style={{ fontSize: 11.5, color: "#7a7666" }}>{s.job_title} · {s.discipline}</div>
+              <div style={{ fontSize: 11.5, color: "#7a7666" }}>{s.job_title} · {s.business_division}</div>
             </div>
             <div style={{ display: "flex", gap: 4 }}>
               {categories.map((c) => {
