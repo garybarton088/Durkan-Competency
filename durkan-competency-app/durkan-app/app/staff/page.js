@@ -1,6 +1,8 @@
 import { createClient } from "@/lib/supabase/server";
 import StaffForm from "./StaffForm";
 
+export const maxDuration = 30;
+
 export default async function StaffPage() {
   const supabase = createClient();
   const {
