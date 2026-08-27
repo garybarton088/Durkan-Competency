@@ -2,6 +2,8 @@ import { createClient } from "@/lib/supabase/server";
 import { redirect } from "next/navigation";
 import SearchPanel from "./SearchPanel";
 
+export const maxDuration = 30;
+
 export default async function SearchPage() {
   const supabase = createClient();
   const {
