@@ -61,8 +61,16 @@ export default function StaffForm({ userId, profile, lookups, categories, initia
   const [savedCat, setSavedCat] = useState(null);
 
   async function saveProfile() {
-    const payload = { ...form, start_date: form.start_date ? `${form.start_date}-01` : null };
-    await supabase.from("profiles").update(payload).eq("id", userId);
+    const payload = {
+      ...form,
+      start_date: form.start_date ? `${form.start_date}-01` : null,
+      cscs_expiry_date: form.cscs_expiry_date ? form.cscs_expiry_date : null,
+    };
+    const { error } = await supabase.from("profiles").update(payload).eq("id", userId);
+    if (error) {
+      alert("Couldn't save: " + error.message);
+      return;
+    }
     setSavedProfile(true);
     setTimeout(() => setSavedProfile(false), 1500);
   }
@@ -96,14 +104,22 @@ export default function StaffForm({ userId, profile, lookups, categories, initia
 
   async function addQual() {
     if (!newQual.name.trim()) return;
-    const { has_expiry, ...toInsert } = newQual;
-    if (!has_expiry) toInsert.expiry_date = "";
+    const { has_expiry, ...rest } = newQual;
+    const toInsert = {
+      ...rest,
+      expiry_date: has_expiry && rest.expiry_date ? rest.expiry_date : null,
+      date_obtained: rest.date_obtained ? rest.date_obtained : null,
+    };
     const { data, error } = await supabase
       .from("qualifications")
       .insert({ staff_id: userId, ...toInsert })
       .select()
       .single();
-    if (!error && data) {
+    if (error) {
+      alert("Couldn't add qualification: " + error.message);
+      return;
+    }
+    if (data) {
       setQuals((prev) => [data, ...prev]);
       setNewQual({ name: "", awarding_body: "", date_obtained: "", expiry_date: "", certificate_ref: "", qual_type: newQual.qual_type, has_expiry: newQual.qual_type === "training" });
     }
