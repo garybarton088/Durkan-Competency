@@ -21,7 +21,11 @@ function FilterGroup({ label, items, selectedIds, onToggle }) {
 }
 
 export default function SearchPanel({ staff, experience, lookups, categories }) {
-  const [filters, setFilters] = useState({ project_type: [], value_band: [], build_type: [], client_type: [], procurement_type: [], contract_type: [], bim_type: [] });
+  const [filters, setFilters] = useState({
+    project_type: [], value_band: [], build_type: [], client_type: [], procurement_type: [], contract_type: [], bim_type: [],
+    frame_type: [], mmc_type: [], material_type: [], refurb_type: [], residential_type: [], scale_band: [],
+    sustainability_type: [], constraint_type: [], accreditation_type: [],
+  });
   const [minLevels, setMinLevels] = useState({});
   const [verifiedOnly, setVerifiedOnly] = useState(true);
   const [shortlist, setShortlist] = useState([]);
@@ -47,7 +51,7 @@ export default function SearchPanel({ staff, experience, lookups, categories }) 
   const results = useMemo(() => {
     return staff.filter((s) => {
       const exp = expByStaff[s.id] || {};
-      for (const cat of ["project_type", "value_band", "build_type", "client_type", "procurement_type", "contract_type", "bim_type"]) {
+      for (const cat of ["project_type", "value_band", "build_type", "client_type", "procurement_type", "contract_type", "bim_type", "frame_type", "mmc_type", "material_type", "refurb_type", "residential_type", "scale_band", "sustainability_type", "constraint_type", "accreditation_type"]) {
         const required = filters[cat];
         if (required.length === 0) continue;
         const has = exp[cat] || [];
@@ -94,6 +98,27 @@ export default function SearchPanel({ staff, experience, lookups, categories }) 
           <FilterGroup label="Procurement types" items={lookups.procurementTypes || []} selectedIds={filters.procurement_type} onToggle={(id) => toggleFilter("procurement_type", id)} />
           <FilterGroup label="Contract types" items={lookups.contractTypes || []} selectedIds={filters.contract_type} onToggle={(id) => toggleFilter("contract_type", id)} />
           <FilterGroup label="Digital / BIM experience" items={lookups.bimTypes || []} selectedIds={filters.bim_type} onToggle={(id) => toggleFilter("bim_type", id)} />
+        </div>
+
+        <div style={{ fontSize: 11.5, fontWeight: 700, textTransform: "uppercase", letterSpacing: "0.04em", color: "var(--steel)", margin: "12px 0 8px" }}>Structure & frame</div>
+        <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 16 }}>
+          <FilterGroup label="Frame types" items={lookups.frameTypes || []} selectedIds={filters.frame_type} onToggle={(id) => toggleFilter("frame_type", id)} />
+          <FilterGroup label="MMC / offsite methods" items={lookups.mmcTypes || []} selectedIds={filters.mmc_type} onToggle={(id) => toggleFilter("mmc_type", id)} />
+          <FilterGroup label="Materials" items={lookups.materialTypes || []} selectedIds={filters.material_type} onToggle={(id) => toggleFilter("material_type", id)} />
+        </div>
+
+        <div style={{ fontSize: 11.5, fontWeight: 700, textTransform: "uppercase", letterSpacing: "0.04em", color: "var(--steel)", margin: "12px 0 8px" }}>Refurbishment & residential</div>
+        <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 16 }}>
+          <FilterGroup label="Refurbishment / maintenance" items={lookups.refurbTypes || []} selectedIds={filters.refurb_type} onToggle={(id) => toggleFilter("refurb_type", id)} />
+          <FilterGroup label="Residential project types" items={lookups.residentialTypes || []} selectedIds={filters.residential_type} onToggle={(id) => toggleFilter("residential_type", id)} />
+          <FilterGroup label="Scale (unit count)" items={lookups.scaleBands || []} selectedIds={filters.scale_band} onToggle={(id) => toggleFilter("scale_band", id)} />
+        </div>
+
+        <div style={{ fontSize: 11.5, fontWeight: 700, textTransform: "uppercase", letterSpacing: "0.04em", color: "var(--steel)", margin: "12px 0 8px" }}>Sustainability & stakeholders</div>
+        <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 16 }}>
+          <FilterGroup label="M&E / sustainability" items={lookups.sustainabilityTypes || []} selectedIds={filters.sustainability_type} onToggle={(id) => toggleFilter("sustainability_type", id)} />
+          <FilterGroup label="Constraints / third parties" items={lookups.constraintTypes || []} selectedIds={filters.constraint_type} onToggle={(id) => toggleFilter("constraint_type", id)} />
+          <FilterGroup label="Warranty & design accreditation" items={lookups.accreditationTypes || []} selectedIds={filters.accreditation_type} onToggle={(id) => toggleFilter("accreditation_type", id)} />
         </div>
         <div style={{ borderTop: "1px solid var(--line)", marginTop: 8, paddingTop: 10 }}>
           <span className="lbl">Minimum competency level</span>
