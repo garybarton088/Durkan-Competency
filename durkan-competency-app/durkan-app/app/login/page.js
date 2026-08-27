@@ -4,9 +4,7 @@ export default function LoginPage({ searchParams }) {
   return (
     <div style={{ minHeight: "100vh", display: "flex", alignItems: "center", justifyContent: "center" }}>
       <div className="card" style={{ width: 380, padding: 24 }}>
-        <div className="mono" style={{ fontSize: 10.5, color: "var(--amber)", letterSpacing: "0.08em", fontWeight: 600 }}>
-          DURKAN
-        </div>
+        <img src="/durkan-logo.png" alt="Durkan" style={{ height: 26, marginBottom: 8 }} />
         <h1 style={{ fontSize: 19, fontWeight: 600, marginTop: 4, marginBottom: 18 }}>Competency register</h1>
 
         {searchParams?.error && (
