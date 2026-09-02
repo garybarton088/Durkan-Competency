@@ -1,12 +1,12 @@
 :root {
-  --paper: #f5f4f0;
-  --ink: #1b2430;
-  --steel: #3d5568;
-  --steel-l: #7a93a6;
-  --amber: #d98a2b;
-  --sage: #4b7a51;
-  --brick: #b23a2f;
-  --line: #dad6ca;
+  --paper: #ffffff;
+  --ink: #0e2a47;
+  --steel: #1c9c7b;
+  --steel-l: #6fcab0;
+  --amber: #1c9c7b;
+  --sage: #1c9c7b;
+  --brick: #c0392b;
+  --line: #dfe3e6;
 }
 
 * { box-sizing: border-box; }
@@ -30,6 +30,7 @@ input, select, textarea { font-family: inherit; }
   background: #fff;
   border: 1px solid var(--line);
   border-radius: 4px;
+  box-shadow: 0 1px 3px rgba(14, 42, 71, 0.05);
 }
 
 .fld {
@@ -47,16 +48,16 @@ input, select, textarea { font-family: inherit; }
   font-size: 11px;
   text-transform: uppercase;
   letter-spacing: 0.04em;
-  color: #7a7666;
+  color: #5c6b78;
   font-weight: 600;
   display: block;
   margin-bottom: 4px;
 }
 
 .btn {
-  border: 1px solid var(--steel);
+  border: 1px solid var(--ink);
   background: #fff;
-  color: var(--steel);
+  color: var(--ink);
   padding: 7px 12px;
   border-radius: 4px;
   font-size: 13px;
@@ -65,9 +66,9 @@ input, select, textarea { font-family: inherit; }
   align-items: center;
   gap: 6px;
 }
-.btn:hover { background: var(--steel); color: #fff; }
-.btn.primary { background: var(--ink); color: #fff; border-color: var(--ink); }
-.btn.primary:hover { background: #000; }
+.btn:hover { background: var(--ink); color: #fff; }
+.btn.primary { background: var(--steel); color: #fff; border-color: var(--steel); }
+.btn.primary:hover { background: #157e64; border-color: #157e64; }
 .btn.danger { border-color: var(--brick); color: var(--brick); }
 .btn.danger:hover { background: var(--brick); color: #fff; }
 
@@ -76,5 +77,5 @@ input, select, textarea { font-family: inherit; }
   padding: 9px 12px; border-radius: 4px; border: none; background: transparent;
   color: var(--ink); font-size: 13.5px; font-weight: 500; text-decoration: none;
 }
-.navbtn.active { background: var(--ink); color: var(--paper); }
-.navbtn:not(.active):hover { background: #eae7de; }
+.navbtn.active { background: var(--ink); color: #fff; }
+.navbtn:not(.active):hover { background: #eef2f5; }
