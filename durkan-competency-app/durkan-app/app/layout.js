@@ -61,19 +61,28 @@ export default async function RootLayout({ children }) {
               }}
             >
               <div style={{ padding: "0 6px" }}>
-                <img src="/durkan-logo.png" alt="Durkan" style={{ height: 22, marginBottom: 6 }} />
+                <img
+                  src="/durkan-regen-logo.jpg"
+                  alt="Durkan"
+                  style={{ height: 22, marginBottom: 6 }}
+                />
                 <h1 style={{ fontSize: 16.5, fontWeight: 600, lineHeight: 1.25, marginTop: 2 }}>Competency register</h1>
-                <div style={{ fontSize: 10.5, color: "#8a8676", marginTop: 3 }}>
+                <div style={{ fontSize: 10.5, color: "#6b7a86", marginTop: 3 }}>
                   {profile?.full_name} · {profile?.role}
                 </div>
               </div>
               <nav style={{ display: "flex", flexDirection: "column", gap: 2 }}>
+                <a className="navbtn" href="/">Welcome</a>
                 <a className="navbtn" href="/staff">My profile</a>
-                {profile?.role === "senior" && (
-                  <a className="navbtn" href="/verify">Verify submissions</a>
+                <a className="navbtn" href="/verify">Verify competencies</a>
+                {(profile?.role === "senior" || profile?.role === "bid_team") && (
+                  <a className="navbtn" href="/dashboard">Coverage & compliance</a>
                 )}
                 {(profile?.role === "senior" || profile?.role === "bid_team") && (
                   <a className="navbtn" href="/search">Tender search</a>
+                )}
+                {profile?.role === "senior" && (
+                  <a className="navbtn" href="/admin/line-managers">Line managers (bulk import)</a>
                 )}
               </nav>
               <div style={{ marginTop: "auto" }}>
